@@ -1,7 +1,8 @@
 {
-    "title": "React Native Boiler Plate",
+    "title": "IFeelSmart Test - Currency",
     "required": "Field required",
     "invalidEmailFormat": "Invalid email format",
     "passwordMinLength": "This field must be at leat {{minLength}} characters long",
-    "passwordNotMatch": "Passwords are not the same"
+    "passwordNotMatch": "Passwords are not the same",
+    "dollarInput": "Enter your dollar amount"
 }
