@@ -5,7 +5,7 @@ import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
 import { useState } from "react";
 import { Image, LogBox, SafeAreaView } from "react-native";
-import HomeView from "./src/pages";
+import HomeView from "./src/views";
 import { I18nextProvider } from "react-i18next"
 import i18next from "./src/config/i18n"
 import 'react-native-gesture-handler';
@@ -41,8 +41,6 @@ export default function App() {
       InterRegular: require('./assets/fonts/Inter-Regular.ttf'),
       InterBold: require('./assets/fonts/Inter-Bold.ttf'),
       InterSemiBold: require('./assets/fonts/Inter-SemiBold.ttf')
-      // Roboto: require("native-base/Fonts/Roboto.ttf"),
-      // ...MaterialCommunityIcons.font,
     })
 
 
