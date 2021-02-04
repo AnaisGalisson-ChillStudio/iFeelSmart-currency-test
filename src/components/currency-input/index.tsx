@@ -23,7 +23,7 @@ function CurrencyInput(p: CurrencyInputProps) {
                 >
                     {p.currencyList && p.currencyList.map((currency) => {
                         return (
-                            <Picker.Item label={currency.label} value={currency.value} />
+                            <Picker.Item label={currency.value + " - " + currency.label} value={currency.value} key={currency.value} />
                         )
                     })}
                 </Picker>

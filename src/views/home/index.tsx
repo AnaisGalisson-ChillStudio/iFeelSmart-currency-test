@@ -1,15 +1,17 @@
 
-import React, { useEffect, useState } from 'react'
-import { HomeProps } from "./home"
-import s from "./style"
-import { Form, View } from 'native-base'
-import T from '../../components/t'
-import CurrencyInput from '../../components/currency-input'
-import useValidator from '../../hooks/use-validator'
-import { useTranslation } from 'react-i18next'
+import React, { useEffect, useState } from 'react';
+import { HomeProps } from "./home";
+import s from "./style";
+import { Form, View } from 'native-base';
+import T from '../../components/t';
+import CurrencyInput from '../../components/currency-input';
+import useValidator from '../../hooks/use-validator';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import IconInput from '../../components/icon-input'
-
+import IconInput from '../../components/icon-input';
+import { CurrencyModel } from '../../models/store';
+import useCurrency from '../../hooks/use-currency';
+import { currency } from '../../models/currency';
 /* 
 */
 function Home(p: HomeProps) {
@@ -17,6 +19,7 @@ function Home(p: HomeProps) {
     const ns = "common:";
     const Validator = useValidator()
     const { t } = useTranslation();
+    const currency = useCurrency()
 
     const { register, errors, setValue, trigger, getValues } = useForm({
         mode: "onChange",
@@ -26,7 +29,6 @@ function Home(p: HomeProps) {
         register("dollar");
         register("currency");
         register("convertedAmount");
-
     }, [register])
 
     return (
@@ -46,11 +48,10 @@ function Home(p: HomeProps) {
                     />
                     <CurrencyInput
                         placeholder={t(ns + "dollarInput")}
-                        currencyList={[{ label: "Y", value: "yen" }, { label: "Euro €", value: "euro" }]}
+                        currencyList={currency.currencyList}
                         onAmountChange={(amount) => setValue("convertedAmount", amount)}
-                        onCurrencyChange={(currency) => {setValue("currency", currency), console.log(currency)}}
+                        onCurrencyChange={(currency) => {setValue("currency", currency)}}
                     />
-
                 </Form>
             </View>
             <View style={s.graphContainer}></View>
