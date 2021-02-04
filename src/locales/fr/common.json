@@ -1,0 +1,7 @@
+{
+    "title": "React Native Boiler Plate",
+    "required": "Ce champs est requis",
+    "invalidEmailFormat": "Format d'email invalide",
+    "passwordMinLength": "Un minimum de {{minLength}} caractères est requis",
+    "passwordNotMatch": "Les mots de passes ne sont pas identiques"
+}

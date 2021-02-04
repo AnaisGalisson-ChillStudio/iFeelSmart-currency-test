@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "infra-react-native-pure",
+    "slug": "infra-react-native-pure",
+    "privacy": "public",
+    "sdkVersion": "40.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.3",
+    "orientation": "portrait",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.company.yourappname",
+      "buildNumber": "1.0.0",
+      "config": {},
+      "usesAppleSignIn": true
+    },
+    "android": {
+      "permissions": [],
+      "package": "com.company.yourappname",
+      "versionCode": 1
+    },
+    "description": ""
+  }
+}

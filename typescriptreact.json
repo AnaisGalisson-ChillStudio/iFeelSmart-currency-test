@@ -1,0 +1,178 @@
+{
+    "log": {
+        "prefix": "ll",
+        "body": [
+            "console.log($1)"
+        ]
+    },
+    "reactComponent": {
+        "prefix": "reactComponent",
+        "body": [
+            "import React from 'react'",
+            "import { makeStyles, Theme, createStyles } from '@material-ui/core';",
+            "import { useRouter } from 'next/router';",
+            "",
+            "/* ",
+            "",
+            "*/",
+            "function $1 (p : $1Props) {",
+            "const isMobile = useIsTouchDevice()",
+            "const s = useStyles({...p,isMobile} )",
+            "const router = useRouter()",
+            "",
+            "return (",
+            "<>",
+            "</>",
+            ")",
+            "}",
+            "",
+            "const useStyles = makeStyles<Theme>((theme: Theme) =>",
+            "createStyles({",
+            "root: {",
+            "},",
+            "})",
+            ")",
+            "",
+            "export default $1"
+        ]
+    },
+    "reactTranslate": {
+        "prefix": "reactTranslate",
+        "body": [
+            "<T id={ns+'$1'}/>"
+        ]
+    },
+    "reactUseTranslation": {
+        "prefix": "reactUseTranslation",
+        "body": [
+            "const { t } = useTranslation();"
+        ]
+    },
+    "bgDebug": {
+        "prefix": "bgDebug",
+        "body": [
+            "style={{backgroundColor:'red'}}"
+        ]
+    },
+    "pt": {
+        "prefix": "pt",
+        "body": "paddingTop : theme.spacing($1)"
+    },
+    "pl": {
+        "prefix": "pl",
+        "body": "paddingLeft : theme.spacing($1)"
+    },
+    "pr": {
+        "prefix": "pr",
+        "body": "paddingRight : theme.spacing($1)"
+    },
+    "pb": {
+        "prefix": "pb",
+        "body": "paddingBottom : theme.spacing($1)"
+    },
+    "mt": {
+        "prefix": "mt",
+        "body": "marginTop : theme.spacing($1)"
+    },
+    "ml": {
+        "prefix": "ml",
+        "body": "marginLeft : theme.spacing($1)"
+    },
+    "mr": {
+        "prefix": "mr",
+        "body": "marginRight : theme.spacing($1)"
+    },
+    "mb": {
+        "prefix": "mb",
+        "body": "marginBottom : theme.spacing($1)"
+    },
+    "margin": {
+        "prefix": "margin",
+        "body": "margin : theme.spacing($1,$2,$3,$4)"
+    },
+    "padding": {
+        "prefix": "padding",
+        "body": "padding : theme.spacing($1,$2,$3,$4)"
+    },
+    "fontSize": {
+        "prefix": "fs",
+        "body": "fontSize: p => p.isMobile ? '$1px': '$2px'"
+    },
+    "reactConst": {
+        "prefix": "reactConst",
+        "body": [
+            "const $1  =() => {",
+            "return $2",
+            "}"
+        ]
+    },
+    "reactUseEffect": {
+        "prefix": "reactUseEffect",
+        "body": [
+            "useEffect(() => {",
+            "$1",
+            "},[])"
+        ]
+    },
+    "reactUseAsyncEffect": {
+        "prefix": "reactUseAsyncEffect",
+        "body": [
+            "useAsyncEffect(async() => {",
+            "$1",
+            "},[])"
+        ]
+    },
+    "reactState": {
+        "prefix": "reactState",
+        "body": [
+            "const [${1} , set${1/(.*)/${1:/capitalize} /}] = useState($2)"
+        ]
+    },
+    "reactStyle": {
+        "prefix": "reactStyle",
+        "body": [
+            "const useStyles = makeStyles<Theme>((theme: Theme) =>",
+            "createStyles({",
+            "   root: {",
+            "   },",
+            "})",
+            ")"
+        ]
+    },
+    "reactUseStyle": {
+        "prefix": "reactUseStyle",
+        "body": [
+            "const s = useStyles({ ...p });"
+        ]
+    },
+    "reactUseAuth": {
+        "prefix": "reactUseAuth",
+        "body": [
+            "const auth = useAuth();"
+        ]
+    },
+    "reactUseNavigation": {
+        "prefix": "reactUseNavigation",
+        "body": [
+            "const navigation = useNavigation();"
+        ]
+    },
+    "reactLink": {
+        "prefix": "reactLink",
+        "body": [
+            "<Link to={'/'+ROUTES$1}><T id={ns+'$2'}/></Link>"
+        ]
+    },
+    "reactUseRouter": {
+        "prefix": "reactUseRouter",
+        "body": [
+            "const router = useRouter()"
+        ]
+    },
+    "style": {
+        "prefix": "st",
+        "body": [
+            "style={{$1}}"
+        ]
+    }
+}
