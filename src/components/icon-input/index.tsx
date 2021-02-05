@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { IconInputProps } from "./icon-input"
 import s from "./style"
-import { Icon, Input, Item, View } from 'native-base'
+import { Icon, Input, Item, View, Label } from 'native-base'
 import FieldError from '../field-error'
 import { Controller, useFormContext } from 'react-hook-form';
 import T from '../t'
@@ -13,20 +13,24 @@ import T from '../t'
 function IconInput({ placeholder, onChangeText, rightIconName, leftIconName, name, rules, defaultValue, ...p }: IconInputProps) {
     const { control, errors } = useFormContext();
 
+
     return (
         <View>
-            <Item style={s.item} >
-                {leftIconName && <Icon active type="FontAwesome" name={leftIconName} />}
+            <Item rounded style={s.item} >
                 <Controller
                     rules={rules}
                     name={name}
                     control={control}
                     defaultValue={defaultValue || ""}
                     render={({ onChange, value }) => (
-                        <Input placeholder={placeholder} onChangeText={(text) => { onChange(text); onChangeText(text) }} value={value} {...p} />
+                        <>
+                        <Input style={s.input} placeholder={placeholder} onChangeText={(text) => { onChange(text); onChangeText(text) }} value={value} {...p} />
+                        {rightIconName && <Icon style={s.icon} active type="FontAwesome" name={rightIconName} />}
+                        </>
                     )}
                 />
-                {rightIconName && <Icon active type="FontAwesome" name={rightIconName} />}
+               
+
             </Item>
             {errors && <FieldError errors={errors} name={name} />}
         </View>

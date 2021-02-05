@@ -13,59 +13,53 @@ import { CurrencyModel } from '../../models/store';
 import useCurrency from '../../hooks/use-currency';
 import { getConvertedValue, getInversedConvertedValue } from '../../services/currencyConversion';
 import CurrencyChart from '../currency-chart';
-
-const CURRENCY_INPUT_NAME = "currency";
-const DOLLAR_INPUT_NAME = "dollar";
-const CONVERTED_AMOUNT_INPUT_NAME = "convertedAmount";
-const CURRENCY_DEFAULT_VALUE = "EUR"
+import { CONVERTED_AMOUNT_INPUT_NAME, CURRENCY_INPUT_NAME, DOLLAR_INPUT_NAME, PRECISION } from './constant';
+import { BASE_CURRENCY, CURRENCY_DEFAULT_VALUE } from '../../config';
 
 /* 
 * Conversion view
 */
 function Home(p: HomeProps) {
 
-    const ns = "common:";
+    const i18nNameSpace = "common:";
     const { t } = useTranslation();
     const Validator = useValidator();
     const currency = useCurrency();
 
     const hooksForm = useForm({
         mode: "onChange",
-        defaultValues: {
-            [CONVERTED_AMOUNT_INPUT_NAME]: undefined
-        }
     });
 
-    const { errors, setValue, getValues } = hooksForm;
+    const { setValue, getValues } = hooksForm;
 
-
-    useEffect(() => {
-        CurrencyModel.getRealTimeCurrency(CURRENCY_DEFAULT_VALUE);
-    }, [])
-
+    // Convert the dollar amount and set the conversion in the bottom input
     const onDollarValueChange = async (dollar: string) => {
         const currencyLabel: string = getValues(CURRENCY_INPUT_NAME);
         if (currencyLabel && dollar != "") {
-            const newCurrency = await CurrencyModel.getRealTimeCurrency(currencyLabel);
-            const convertedValue = getConvertedValue(parseFloat(dollar), newCurrency)
+            const convertedValue = getConvertedValue(parseFloat(dollar), parseFloat(currency.selectedCurrency), PRECISION)
             setValue(CONVERTED_AMOUNT_INPUT_NAME, convertedValue.toString())
         } else {
             setValue(CONVERTED_AMOUNT_INPUT_NAME, "")
         }
     }
 
+    // Update the converted amount (bottom input) with the new currency value when currency change
     const onCurrencyChange = async (currency: string) => {
+        CurrencyModel.getLastMonthRatesValues(currency);
         const dollarValue: string = getValues(DOLLAR_INPUT_NAME);
         if (dollarValue) {
             const newCurrency = await CurrencyModel.getRealTimeCurrency(currency);
-            const convertedValue = getConvertedValue(parseFloat(dollarValue), parseFloat(newCurrency))
-            setValue(CONVERTED_AMOUNT_INPUT_NAME, convertedValue.toString())
+            if (newCurrency !== undefined) {
+                const convertedValue = getConvertedValue(parseFloat(dollarValue), parseFloat(newCurrency), PRECISION)
+                setValue(CONVERTED_AMOUNT_INPUT_NAME, convertedValue.toString())
+            }
         }
     }
 
+    // Update dollar input value when the bottom input value change
     const onAmountChange = async (amount) => {
-        if(amount !== "") {
-            const newDollarValue = getInversedConvertedValue(parseFloat(amount), parseFloat((currency.selectedCurrency)));
+        if (amount !== "") {
+            const newDollarValue = getInversedConvertedValue(parseFloat(amount), parseFloat((currency.selectedCurrency)), PRECISION);
             setValue(DOLLAR_INPUT_NAME, newDollarValue.toString());
         } else {
             setValue(DOLLAR_INPUT_NAME, "");
@@ -74,37 +68,41 @@ function Home(p: HomeProps) {
 
     return (
         <View style={s.root}>
+
             {/* TITLE */}
             <View style={s.titleContainer}>
-                <T id="common:title" variant="h2" />
+                <T id="common:title" variant="h1" />
             </View>
+
             {/* CURRENCY FORM */}
             <View style={s.conversionContainer}>
                 <FormProvider {...hooksForm} >
                     <Form style={s.form}>
                         <IconInput
-                            rules={{ ...Validator.required("Field is required") }}
-                            placeholder={t(ns + "dollarInput")}
+                            rules={{ ...Validator.required() }}
+                            placeholder={t(i18nNameSpace + "dollarInput")}
                             onChangeText={onDollarValueChange}
                             rightIconName="dollar"
                             keyboardType="numeric"
                             name={DOLLAR_INPUT_NAME}
                         />
                         <CurrencyInput
-                            placeholder={t(ns + "convertedAmount")}
+                            placeholder={t(i18nNameSpace + "convertedAmount")}
                             currencyList={currency.currencyList}
                             onAmountChange={onAmountChange}
                             onCurrencyChange={onCurrencyChange}
                             currencyName={CURRENCY_INPUT_NAME}
                             amountName={CONVERTED_AMOUNT_INPUT_NAME}
-                            rules={{ ...Validator.required("Field is required") }}
+                            rules={{ ...Validator.required() }}
                             currencyDefaultValue={CURRENCY_DEFAULT_VALUE}
                         />
                     </Form>
                 </FormProvider>
             </View>
+
+            {/* CURRENCY CHART */}
             <View style={s.graphContainer}>
-               <CurrencyChart />
+                {currency.currencyMonthlyAverageValues && <CurrencyChart currencyCode={getValues(CURRENCY_INPUT_NAME)} data={currency.currencyMonthlyAverageValues} />}
             </View>
         </View>
     )

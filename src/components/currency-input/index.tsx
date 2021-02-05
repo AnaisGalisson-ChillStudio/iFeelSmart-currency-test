@@ -1,12 +1,9 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 import { CurrencyInputProps } from "./currency-input"
 import s from "./style"
-import { Icon, Input, Item, Picker, View } from 'native-base'
+import {  Input, Item, Picker, View } from 'native-base'
 import { Controller, useFormContext } from 'react-hook-form'
-import FieldError from '../field-error'
-import { ppid } from 'process'
-
 /* 
 * Input numeric with currency dropdown
 */
@@ -15,8 +12,9 @@ function CurrencyInput(p: CurrencyInputProps) {
 
     return (
         <View>
-            <Item style={s.item}>
+            <Item rounded style={s.item}>
 
+                {/* Amount input */}
                 <Controller
                     rules={p.rules}
                     name={p.amountName}
@@ -27,6 +25,7 @@ function CurrencyInput(p: CurrencyInputProps) {
                     )}
                 />
 
+                {/* Currency dropdown */}
                 <Controller
                     rules={p.rules}
                     name={p.currencyName}
@@ -35,7 +34,6 @@ function CurrencyInput(p: CurrencyInputProps) {
                     render={({ onChange, value }) => (
                         <Picker
                             mode="dialog"
-                            iosIcon={<Icon type="AntDesign" name="up" style={{marginRight: 30}}/>}
                             onValueChange={(value) => { onChange(value); p.onCurrencyChange(value) }}
                             style={s.picker}
                             selectedValue={value}
@@ -49,6 +47,7 @@ function CurrencyInput(p: CurrencyInputProps) {
                     )}
                 />
             </Item>
+            
         </View>
     )
 }

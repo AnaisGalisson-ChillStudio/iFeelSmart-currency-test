@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { white } from '../../styles/colors';
+import { theme } from '../../styles/theme';
 export default StyleSheet.create({
 
     root: {
-        padding: 10,
+        ...theme.pt1,
         flex: 1,
         backgroundColor: white
     },
@@ -14,17 +15,17 @@ export default StyleSheet.create({
     },
     conversionContainer: {
         alignItems: "center",
+        justifyContent: "center",
         flex: 30,
-    },
-    graphContainer: {
-        alignItems: "center",
-        justifyContent:"space-around",
-        flex: 50,
     },
     form: {
         flex: 1,
-        justifyContent:"space-evenly",
-        width:"90%",
+        justifyContent: "space-around",
+        width: "90%",
         alignItems: "center",
+    },
+    graphContainer: {
+        flex: 50,
+        justifyContent:"flex-start"
     }
 });

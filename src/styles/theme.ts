@@ -5,7 +5,7 @@ const theme = StyleSheet.create({
         color: "black",
         fontFamily: "InterBold",
         letterSpacing: -0.1,
-        fontSize: 30,
+        fontSize: 25,
     },
     h2: {
         fontFamily: "InterRegular",
@@ -77,6 +77,36 @@ const theme = StyleSheet.create({
     },
     pl5: {
         paddingLeft: 50
+    },
+    pr1: {
+        paddingRight: 10
+    },
+    pr2: {
+        paddingRight: 20
+    },
+    pr3: {
+        paddingRight: 30
+    },
+    pr4: {
+        paddingRight: 40
+    },
+    pr5: {
+        paddingTop: 50
+    },
+    pt1: {
+        paddingTop: 10
+    },
+    pt2: {
+        paddingTop: 20
+    },
+    pt3: {
+        paddingTop: 30
+    },
+    pt4: {
+        paddingTop: 40
+    },
+    pt5: {
+        paddingTop: 50
     },
     containerPadding: {
         padding: 20,

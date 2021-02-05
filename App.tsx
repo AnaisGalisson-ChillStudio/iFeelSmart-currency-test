@@ -5,7 +5,7 @@ import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
 import { useState } from "react";
 import { Image, LogBox, SafeAreaView } from "react-native";
-import HomeView from "./src/views";
+import HomeView from "./src/pages";
 import { I18nextProvider } from "react-i18next"
 import i18next from "./src/config/i18n"
 import 'react-native-gesture-handler';
@@ -15,6 +15,7 @@ import store from "./src/models/store";
 import { ROUTES } from "./src/routes";
 import { Spinner } from "./src/components/spinner"
 import { CurrencyModel } from './src/models/store';
+import {  CURRENCY_DEFAULT_VALUE } from "./src/config";
 LogBox.ignoreLogs(["Require cycle", "VirtualizedLists should never be nested"])
 
 export default function App() {
@@ -24,6 +25,8 @@ export default function App() {
 
   useEffect(() => {
     CurrencyModel.getCurencyList();
+    CurrencyModel.getRealTimeCurrency(CURRENCY_DEFAULT_VALUE);
+    CurrencyModel.getLastMonthRatesValues(CURRENCY_DEFAULT_VALUE)
   }, [])
 
   const cacheImages = (images) => {
@@ -76,7 +79,7 @@ export default function App() {
 
       :
       <AppLoading
-        onError={console.warn}
+        onError={console.log}
         startAsync={loadAssets}
         onFinish={() => console.log("Assets loaded")}
       />

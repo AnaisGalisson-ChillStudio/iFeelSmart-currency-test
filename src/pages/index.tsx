@@ -1,11 +1,9 @@
 import React from 'react'
 import { View } from "react-native"
-import { SafeAreaView } from 'react-native-safe-area-context'
-import T from '../components/t'
 import Home from './home'
 import s from "./style"
 
-function HomeView({ navigation }) {
+function HomeView() {
 
     return (
         <View style={s.root}>

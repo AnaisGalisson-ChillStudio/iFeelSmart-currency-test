@@ -1,13 +1,16 @@
 import { StyleSheet } from 'react-native'
+import { theme } from '../../styles/theme';
 export default StyleSheet.create({
     item: {
         width: '80%'
     },
     input: {
-        width: 110,
+        width: 90,
+       ...theme.pl2
     },
     picker:{
-        width: 80,
-    }
+        width: 90,
+    },
+    
 
 });

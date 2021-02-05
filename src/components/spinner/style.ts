@@ -1,13 +1,8 @@
 import { StyleSheet } from 'react-native'
 import { theme } from '../../styles/theme';
 export default StyleSheet.create({
-    item: {
-        width: '80%'
-    },
-    icon : {
-        ...theme.pr2
-    },
-    input:{
-        ...theme.pl2
+    spinner: { 
+        zIndex: 1, top: "50%", left: "45%", position: "absolute" 
     }
+    
 });

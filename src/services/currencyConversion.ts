@@ -1,12 +1,12 @@
 
-const PRECISION = 6;
 
-function getConvertedValue(valueToConvert: number, currency: number) {
-    return (valueToConvert * currency).toFixed(PRECISION);
+function getConvertedValue(valueToConvert: number, currency: number, precision?: number | 2) {
+    return (valueToConvert * currency).toFixed(precision);
 }
 
-function getInversedConvertedValue(valueToConvert: number, currency: number) {
-    return (valueToConvert * (1 / currency)).toFixed(PRECISION);
+function getInversedConvertedValue(valueToConvert: number, currency: number, precision?: number | 2) {
+    console.log( (valueToConvert * (1 / currency)).toFixed(precision))
+    return (valueToConvert * (1 / currency)).toFixed(precision);
 }
 
 export { getConvertedValue, getInversedConvertedValue }
