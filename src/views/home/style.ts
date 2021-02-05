@@ -14,12 +14,12 @@ export default StyleSheet.create({
     },
     conversionContainer: {
         alignItems: "center",
-        flex: 40,
+        flex: 30,
     },
     graphContainer: {
         alignItems: "center",
         justifyContent:"space-around",
-        flex: 40,
+        flex: 50,
     },
     form: {
         flex: 1,

@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, } from 'react';
 import { HomeProps } from "./home";
 import s from "./style";
 import { Form, View } from 'native-base';
@@ -11,14 +11,15 @@ import { FormProvider, useForm } from 'react-hook-form';
 import IconInput from '../../components/icon-input';
 import { CurrencyModel } from '../../models/store';
 import useCurrency from '../../hooks/use-currency';
-import { currency } from '../../models/currency';
-import { error } from 'console';
-import { convertValueWithCurrency } from '../../services/currencyConversion';
+import { getConvertedValue, getInversedConvertedValue } from '../../services/currencyConversion';
 
 const CURRENCY_INPUT_NAME = "currency";
 const DOLLAR_INPUT_NAME = "dollar";
 const CONVERTED_AMOUNT_INPUT_NAME = "convertedAmount";
+const CURRENCY_DEFAULT_VALUE = "EUR"
+
 /* 
+* Conversion view
 */
 function Home(p: HomeProps) {
 
@@ -27,22 +28,47 @@ function Home(p: HomeProps) {
     const Validator = useValidator();
     const currency = useCurrency();
 
-
     const hooksForm = useForm({
         mode: "onChange",
         defaultValues: {
             [CONVERTED_AMOUNT_INPUT_NAME]: undefined
         }
     });
+
     const { errors, setValue, getValues } = hooksForm;
 
 
+    useEffect(() => {
+        CurrencyModel.getRealTimeCurrency(CURRENCY_DEFAULT_VALUE);
+    }, [])
+
     const onDollarValueChange = async (dollar: string) => {
-        if(getValues(CURRENCY_INPUT_NAME)) {
-            const newCurrency = await CurrencyModel.getRealTimeCurrency(getValues(CURRENCY_INPUT_NAME));
-            const convertedValue = convertValueWithCurrency(parseFloat(dollar), newCurrency)
+        const currencyLabel: string = getValues(CURRENCY_INPUT_NAME);
+        if (currencyLabel && dollar != "") {
+            const newCurrency = await CurrencyModel.getRealTimeCurrency(currencyLabel);
+            const convertedValue = getConvertedValue(parseFloat(dollar), newCurrency)
             setValue(CONVERTED_AMOUNT_INPUT_NAME, convertedValue.toString())
-         }
+        } else {
+            setValue(CONVERTED_AMOUNT_INPUT_NAME, "")
+        }
+    }
+
+    const onCurrencyChange = async (currency: string) => {
+        const dollarValue: string = getValues(DOLLAR_INPUT_NAME);
+        if (dollarValue) {
+            const newCurrency = await CurrencyModel.getRealTimeCurrency(currency);
+            const convertedValue = getConvertedValue(parseFloat(dollarValue), parseFloat(newCurrency))
+            setValue(CONVERTED_AMOUNT_INPUT_NAME, convertedValue.toString())
+        }
+    }
+
+    const onAmountChange = async (amount) => {
+        if(amount !== "") {
+            const newDollarValue = getInversedConvertedValue(parseFloat(amount), parseFloat((currency.selectedCurrency)));
+            setValue(DOLLAR_INPUT_NAME, newDollarValue.toString());
+        } else {
+            setValue(DOLLAR_INPUT_NAME, "");
+        }
     }
 
     return (
@@ -59,19 +85,19 @@ function Home(p: HomeProps) {
                             rules={{ ...Validator.required("Field is required") }}
                             placeholder={t(ns + "dollarInput")}
                             onChangeText={onDollarValueChange}
-                            leftIconName="dollar"
+                            rightIconName="dollar"
                             keyboardType="numeric"
                             name={DOLLAR_INPUT_NAME}
                         />
                         <CurrencyInput
-                            placeholder={t(ns + "dollarInput")}
+                            placeholder={t(ns + "convertedAmount")}
                             currencyList={currency.currencyList}
-                            onAmountChange={(amount) => setValue(CONVERTED_AMOUNT_INPUT_NAME, amount, { shouldValidate: true })}
-                            onCurrencyChange={(currency) => { setValue(CURRENCY_INPUT_NAME, currency, { shouldValidate: true }) }}
+                            onAmountChange={onAmountChange}
+                            onCurrencyChange={onCurrencyChange}
                             currencyName={CURRENCY_INPUT_NAME}
                             amountName={CONVERTED_AMOUNT_INPUT_NAME}
                             rules={{ ...Validator.required("Field is required") }}
-                            currencyDefaultValue={"EUR"}
+                            currencyDefaultValue={CURRENCY_DEFAULT_VALUE}
                         />
                     </Form>
                 </FormProvider>

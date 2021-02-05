@@ -4,5 +4,6 @@
     "invalidEmailFormat": "Format d'email invalide",
     "passwordMinLength": "Un minimum de {{minLength}} caractères est requis",
     "passwordNotMatch": "Les mots de passes ne sont pas identiques",
-    "dollarInput": "Entre ton montant"
+    "dollarInput": "Entre ton montant",
+    "convertedAmount": "Montant convertit"
 }

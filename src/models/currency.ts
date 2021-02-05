@@ -8,18 +8,23 @@ import { getRequest } from '../services/asyncRequest'
  */
 export type CurrencyState = {
     currencyList: Currency[];
-    selectedCurrency: Currency;
+    selectedCurrency: string;
 }
 
 const model = {
     name: "currency",
     state: {
         currencyList: [],
+        selectedCurrency : "",
     } as CurrencyState,
     reducers: {
         setCurrenyList: (state: CurrencyState, currencyList: Currency[]) => ({
             ...state,
             currencyList,
+        }),
+        setSelectedCurrency: (state: CurrencyState, selectedCurrency: string) => ({
+            ...state,
+            selectedCurrency,
         })
     },
     effects: () => ({
@@ -27,18 +32,18 @@ const model = {
             const response: CurrencyListResponse = await getRequest("/list");
             if (response && response.currencies) {
                 const formattedCurrencyList = []
-                // format the value { string: string } to { label: "", value : ""}
+                // store  and format as { string: string } to { label: "", value : ""}
                 Object.keys(response.currencies).forEach(function (key) {
                     formattedCurrencyList.push({ label: response.currencies[key], value: key })
                 });
                 this.setCurrenyList(formattedCurrencyList)
             }
-            return response
-
+            return response;
         },
         async getRealTimeCurrency(currency: string) {
             const response: RealTimeCurrencyResponse = await getRequest("/live", { currencies: currency });
             if (response && response.quotes) {
+                this.setSelectedCurrency(response.quotes["USD" + currency]);
                 return response.quotes["USD" + currency];
             }
             return response

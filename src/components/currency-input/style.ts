@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     item: {
-        width: '70%'
+        width: '80%'
     },
     input: {
         width: 110,

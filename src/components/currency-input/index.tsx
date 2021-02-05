@@ -11,7 +11,7 @@ import { ppid } from 'process'
 * Input numeric with currency dropdown
 */
 function CurrencyInput(p: CurrencyInputProps) {
-    const { control, errors } = useFormContext();
+    const { control } = useFormContext();
 
     return (
         <View>
@@ -21,9 +21,9 @@ function CurrencyInput(p: CurrencyInputProps) {
                     rules={p.rules}
                     name={p.amountName}
                     control={control}
-                    defaultValue={p.amountDefaultValue || "" }
+                    defaultValue={p.amountDefaultValue || ""}
                     render={({ onChange, value }) => (
-                        <Input placeholder={p.placeholder} style={s.input} value={value} onChangeText={onChange} keyboardType="numeric" />
+                        <Input placeholder={p.placeholder} style={s.input} value={value} onChangeText={(text) => { onChange(text); p.onAmountChange(text) }} keyboardType="numeric" />
                     )}
                 />
 
@@ -35,8 +35,8 @@ function CurrencyInput(p: CurrencyInputProps) {
                     render={({ onChange, value }) => (
                         <Picker
                             mode="dialog"
-                            iosIcon={<Icon type="AntDesign" name="up" />}
-                            onValueChange={onChange}
+                            iosIcon={<Icon type="AntDesign" name="up" style={{marginRight: 30}}/>}
+                            onValueChange={(value) => { onChange(value); p.onCurrencyChange(value) }}
                             style={s.picker}
                             selectedValue={value}
                         >
@@ -49,7 +49,6 @@ function CurrencyInput(p: CurrencyInputProps) {
                     )}
                 />
             </Item>
-            {errors && <FieldError errors={errors} name={p.amountName} />}
         </View>
     )
 }

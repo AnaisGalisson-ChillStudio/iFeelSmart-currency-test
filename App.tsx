@@ -23,7 +23,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    CurrencyModel.getCurencyList()
+    CurrencyModel.getCurencyList();
   }, [])
 
   const cacheImages = (images) => {

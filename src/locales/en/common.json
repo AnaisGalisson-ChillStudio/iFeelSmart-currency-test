@@ -4,5 +4,6 @@
     "invalidEmailFormat": "Invalid email format",
     "passwordMinLength": "This field must be at leat {{minLength}} characters long",
     "passwordNotMatch": "Passwords are not the same",
-    "dollarInput": "Enter your dollar amount"
+    "dollarInput": "Enter your dollar amount",
+    "convertedAmount": "Converted amount"
 }

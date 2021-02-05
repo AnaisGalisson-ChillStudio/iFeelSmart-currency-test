@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     item: {
-        width: '70%'
+        width: '80%'
     }
 });
