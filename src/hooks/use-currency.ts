@@ -1,5 +1,5 @@
 
-    import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { CurrencyState } from "../models/currency";
 import { IStore } from "../models/store";
 
