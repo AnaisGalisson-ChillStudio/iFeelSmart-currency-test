@@ -5,7 +5,8 @@ export interface CurrencyInputProps {
     onCurrencyChange: (currency: string) => void;
     currencyName: string;
     amountName: string;
-    defaultValue?: string;
+    currencyDefaultValue?: string;
+    amountDefaultValue?: string;
     rules:  Exclude<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>
 }
 

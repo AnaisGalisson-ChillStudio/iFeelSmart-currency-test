@@ -21,7 +21,7 @@ function CurrencyInput(p: CurrencyInputProps) {
                     rules={p.rules}
                     name={p.amountName}
                     control={control}
-                    defaultValue={p.defaultValue || ""}
+                    defaultValue={p.amountDefaultValue || "" }
                     render={({ onChange, value }) => (
                         <Input placeholder={p.placeholder} style={s.input} value={value} onChangeText={onChange} keyboardType="numeric" />
                     )}
@@ -31,7 +31,7 @@ function CurrencyInput(p: CurrencyInputProps) {
                     rules={p.rules}
                     name={p.currencyName}
                     control={control}
-                    defaultValue={p.defaultValue || ""}
+                    defaultValue={p.currencyDefaultValue}
                     render={({ onChange, value }) => (
                         <Picker
                             mode="dialog"

@@ -13,10 +13,11 @@ import { CurrencyModel } from '../../models/store';
 import useCurrency from '../../hooks/use-currency';
 import { currency } from '../../models/currency';
 import { error } from 'console';
+import { convertValueWithCurrency } from '../../services/currencyConversion';
 
 const CURRENCY_INPUT_NAME = "currency";
 const DOLLAR_INPUT_NAME = "dollar";
-const CONVERTED_AMOUN_INPUT_NAME = "convertedAmount";
+const CONVERTED_AMOUNT_INPUT_NAME = "convertedAmount";
 /* 
 */
 function Home(p: HomeProps) {
@@ -30,19 +31,18 @@ function Home(p: HomeProps) {
     const hooksForm = useForm({
         mode: "onChange",
         defaultValues: {
-            [CONVERTED_AMOUN_INPUT_NAME]: undefined
+            [CONVERTED_AMOUNT_INPUT_NAME]: undefined
         }
     });
     const { errors, setValue, getValues } = hooksForm;
 
 
     const onDollarValueChange = async (dollar: string) => {
-        // setValue(DOLLAR_INPUT_NAME, dollar, { shouldValidate: true });
-        //setValue(CONVERTED_AMOUN_INPUT_NAME, dollar, { shouldValidate: true })
-        // if(getValues(CURRENCY_INPUT_NAME)) {
-        //     const newCurrency = await CurrencyModel.getRealTimeCurrency(getValues(CURRENCY_INPUT_NAME));
-        //     console.log("NEW", newCurrency)
-        //  }
+        if(getValues(CURRENCY_INPUT_NAME)) {
+            const newCurrency = await CurrencyModel.getRealTimeCurrency(getValues(CURRENCY_INPUT_NAME));
+            const convertedValue = convertValueWithCurrency(parseFloat(dollar), newCurrency)
+            setValue(CONVERTED_AMOUNT_INPUT_NAME, convertedValue.toString())
+         }
     }
 
     return (
@@ -66,13 +66,13 @@ function Home(p: HomeProps) {
                         <CurrencyInput
                             placeholder={t(ns + "dollarInput")}
                             currencyList={currency.currencyList}
-                            onAmountChange={(amount) => setValue(CONVERTED_AMOUN_INPUT_NAME, amount, { shouldValidate: true })}
+                            onAmountChange={(amount) => setValue(CONVERTED_AMOUNT_INPUT_NAME, amount, { shouldValidate: true })}
                             onCurrencyChange={(currency) => { setValue(CURRENCY_INPUT_NAME, currency, { shouldValidate: true }) }}
                             currencyName={CURRENCY_INPUT_NAME}
-                            amountName={CONVERTED_AMOUN_INPUT_NAME}
+                            amountName={CONVERTED_AMOUNT_INPUT_NAME}
                             rules={{ ...Validator.required("Field is required") }}
+                            currencyDefaultValue={"EUR"}
                         />
-
                     </Form>
                 </FormProvider>
             </View>

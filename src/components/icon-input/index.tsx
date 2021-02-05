@@ -23,7 +23,7 @@ function IconInput({ placeholder, onChangeText, rightIconName, leftIconName, nam
                     control={control}
                     defaultValue={defaultValue || ""}
                     render={({ onChange, value }) => (
-                        <Input placeholder={placeholder} onChangeText={onChange} value={value} {...p} />
+                        <Input placeholder={placeholder} onChangeText={(text) => { onChange(text); onChangeText(text) }} value={value} {...p} />
                     )}
                 />
                 {rightIconName && <Icon active type="FontAwesome" name={rightIconName} />}

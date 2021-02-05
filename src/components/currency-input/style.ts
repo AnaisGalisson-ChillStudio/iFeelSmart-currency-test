@@ -4,10 +4,10 @@ export default StyleSheet.create({
         width: '70%'
     },
     input: {
-        width: 150,
+        width: 110,
     },
     picker:{
-        width: 50,
+        width: 80,
     }
 
 });
