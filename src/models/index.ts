@@ -1,11 +1,15 @@
 import { spinner } from './spinner'
+import { currency } from './currency'
 import { Models } from '@rematch/core'
 
 export interface RootModel extends Models {
-    spinner: typeof spinner
+    spinner: typeof spinner;
+    currency: typeof currency
 }
+
 const rootModel: RootModel = {
-    spinner
+    spinner,
+    currency
 }
 
 

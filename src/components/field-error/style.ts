@@ -5,6 +5,9 @@ export default StyleSheet.create({
     root: {
         ...theme.mt1,
         height: 20
-    }
+    },
+    text: { 
+        color: "red"
+     }
 
 });

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Provider } from "react-redux";
 import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
@@ -14,10 +14,20 @@ import { createStackNavigator } from '@react-navigation/stack';
 import store from "./src/models/store";
 import { ROUTES } from "./src/routes";
 import { Spinner } from "./src/components/spinner"
+import { CurrencyModel } from './src/models/store';
+import {  CURRENCY_DEFAULT_VALUE } from "./src/config";
+LogBox.ignoreLogs(["Require cycle", "VirtualizedLists should never be nested"])
 
 export default function App() {
+
   const Stack = createStackNavigator();
-  const [isReady, setIsReady] = useState(false)
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    CurrencyModel.getCurencyList();
+    CurrencyModel.getRealTimeCurrency(CURRENCY_DEFAULT_VALUE);
+    CurrencyModel.getLastMonthRatesValues(CURRENCY_DEFAULT_VALUE)
+  }, [])
 
   const cacheImages = (images) => {
     return images.map(image => {
@@ -41,8 +51,6 @@ export default function App() {
       InterRegular: require('./assets/fonts/Inter-Regular.ttf'),
       InterBold: require('./assets/fonts/Inter-Bold.ttf'),
       InterSemiBold: require('./assets/fonts/Inter-SemiBold.ttf')
-      // Roboto: require("native-base/Fonts/Roboto.ttf"),
-      // ...MaterialCommunityIcons.font,
     })
 
 
@@ -71,7 +79,7 @@ export default function App() {
 
       :
       <AppLoading
-        onError={console.warn}
+        onError={console.log}
         startAsync={loadAssets}
         onFinish={() => console.log("Assets loaded")}
       />

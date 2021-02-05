@@ -6,5 +6,6 @@ export interface TranslateProps {
     children?: any;
     style?: TextStyle
     variant?: string;
+    values? : {[key:string] : string}
 
 }

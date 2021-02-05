@@ -36,3 +36,4 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export const SpinnerModel = store.dispatch.spinner
+export const CurrencyModel = store.dispatch.currency
