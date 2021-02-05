@@ -12,6 +12,7 @@ import IconInput from '../../components/icon-input';
 import { CurrencyModel } from '../../models/store';
 import useCurrency from '../../hooks/use-currency';
 import { getConvertedValue, getInversedConvertedValue } from '../../services/currencyConversion';
+import CurrencyChart from '../currency-chart';
 
 const CURRENCY_INPUT_NAME = "currency";
 const DOLLAR_INPUT_NAME = "dollar";
@@ -102,7 +103,9 @@ function Home(p: HomeProps) {
                     </Form>
                 </FormProvider>
             </View>
-            <View style={s.graphContainer}></View>
+            <View style={s.graphContainer}>
+               <CurrencyChart />
+            </View>
         </View>
     )
 }

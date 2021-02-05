@@ -23,7 +23,7 @@ export default StyleSheet.create({
     },
     form: {
         flex: 1,
-        justifyContent:"space-around",
+        justifyContent:"space-evenly",
         width:"90%",
         alignItems: "center",
     }
