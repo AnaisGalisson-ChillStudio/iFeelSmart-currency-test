@@ -1,6 +1,6 @@
 export interface Currency {
-   value: string;
-   label: string;
+    value: string;
+    label: string;
 }
 
 
@@ -8,4 +8,8 @@ export interface Currency {
 
 export interface CurrencyListResponse {
     currencies: Currency[]
+}
+
+export interface RealTimeCurrencyResponse {
+    quotes: Array<{ [string, string] }>
 }

@@ -3,6 +3,10 @@ export interface CurrencyInputProps {
     currencyList: Currency[];
     onAmountChange: (amount: string) => void;
     onCurrencyChange: (currency: string) => void;
+    currencyName: string;
+    amountName: string;
+    defaultValue?: string;
+    rules:  Exclude<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>
 }
 
 export interface Currency {

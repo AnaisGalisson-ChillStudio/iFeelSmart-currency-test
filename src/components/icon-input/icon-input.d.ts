@@ -1,8 +1,10 @@
 import { Input, NativeBase } from "native-base";
-
+import { RegisterOptions } from "react-hook-form"
 export interface IconInputProps extends NativeBase.Input {
-    onChange: (value: string) => void;
+    onChangeText: (value: string) => void;
     placeholder: string;
     leftIconName?: string;
     rightIconName?: string;
+    name: string;
+    rules:  Exclude<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>
 }
